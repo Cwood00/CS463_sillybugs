@@ -232,7 +232,6 @@ VOID	StartRayTrace()
  *	0 if successful.
  *	1 for any type of failure.
  */
-volatile int dummy=0;
 
 int	main(int argc, CHAR *argv[])
 {   INT	i;
@@ -257,7 +256,6 @@ int	main(int argc, CHAR *argv[])
             case 'a':
             case 'A':
                 AntiAlias = TRUE;
-								mmap(0,1<<32,PROT_WRITE,MAP_SHARED|MAP_POPULATE|MAP_ANONYMOUS,0,0);
                 if (argv[i][2] != '\0')
                 {   NumSubRays = atoi(&argv[i][2]); }
                 else
@@ -292,10 +290,6 @@ int	main(int argc, CHAR *argv[])
     {   Usage();
         exit(1); }
 
-		for(int i=0;i<1000000000;i++) {
-			dummy++; // useless increment
-		}
-		
     /*
      *	Make sure nprocs is within valid range.
      */
@@ -323,8 +317,9 @@ int	main(int argc, CHAR *argv[])
      */
 
     MaxGlobMem <<= 20;			/* Convert MB to bytes.      */
+
     MAIN_INITENV(,MaxGlobMem + 512*1024)
-		gb = sizeof(GMEM);
+
     gm = (GMEM *)G_MALLOC(sizeof(GMEM));
 
 
@@ -369,7 +364,6 @@ int	main(int argc, CHAR *argv[])
     MatrixCopy(vtrans, View.vtrans);
     MatrixInverse(Vinv, vtrans);
     MatrixCopy(View.vtransInv, Vinv);
-    MatrixInit(4);
 
     /*
      *	Print out what we have so far.

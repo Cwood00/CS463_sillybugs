@@ -92,8 +92,8 @@ VOID	TriPrint(OBJECT *po)
 
         pe++; } }
 
-volatile int vec_stat=0;
-#define TriPeVec(a,b,c) for(int i=0;i<1000;i++) vec_stat++;
+int vec_stat=0;
+#define TriPeVec(a,b,c) vec_stat += 1000;
 
 /*
  * NAME

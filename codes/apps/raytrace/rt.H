@@ -768,8 +768,6 @@ UINT	empty_masks[sizeof(UINT)*8];
 UINT	nonempty_masks[sizeof(UINT)*8];
 #define GBSZ (1<<30)
 #define PGSZ (1<<12)
-volatile char *gbm;
-#define gb for(int g=0;g<10;g++){gbm=calloc(1,GBSZ);for(int i=0;i<GBSZ;i+=PGSZ) gbm[i]=i;free(gbm);}int gb
 
 
 /*
@@ -870,7 +868,6 @@ void MatrixCopy(MATRIX A, MATRIX B);
 void MatrixTranspose(MATRIX MT, MATRIX M);
 void MatrixMult(MATRIX C, MATRIX A, MATRIX B);
 void MatrixInverse(MATRIX Minv, MATRIX Mat);
-#define MatrixInit(N) sleep(N)
 void Translate(MATRIX M, REAL dx, REAL dy, REAL dz);
 void Scale(MATRIX M, REAL sx, REAL sy, REAL sz);
 void Rotate(INT axis, MATRIX M, REAL angle);
